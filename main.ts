@@ -46,7 +46,7 @@ basic.forever(function () {
             dead_or_no = 1
             music.playMelody("F E F G F E D C ", 106)
             basic.showIcon(IconNames.Heart)
-            control.waitMicros(100)
+            control.waitMicros(1000000)
             basic.showLeds(`
                 . # . # .
                 # # . # #
