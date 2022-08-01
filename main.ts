@@ -36,12 +36,12 @@ basic.forever(function () {
 basic.forever(function () {
     if (eat == 0) {
         music.playMelody("C5 C5 C5 C5 C5 B B C5 ", 160)
-        control.waitMicros(100000)
+        basic.pause(3000)
+        control.waitMicros(3000000)
         if (input.buttonIsPressed(Button.B)) {
             music.playMelody("G A G A A B C5 - ", 400)
             dead_or_no = 0
             eat += 15
-            control.waitMicros(3000000)
         } else {
             dead_or_no = 1
             music.playMelody("F E F G F E D C ", 106)
