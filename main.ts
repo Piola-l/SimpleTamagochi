@@ -41,7 +41,7 @@ basic.forever(function () {
             music.playMelody("G A G A A B C5 - ", 400)
             dead_or_no = 0
             eat += 15
-            control.waitMicros(2000000)
+            control.waitMicros(3000000)
         } else {
             dead_or_no = 1
             music.playMelody("F E F G F E D C ", 106)
