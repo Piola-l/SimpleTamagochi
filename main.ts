@@ -1,29 +1,3 @@
-input.onGesture(Gesture.TiltLeft, function () {
-    basic.showLeds(`
-        . . . . .
-        # . # . .
-        # . # . .
-        . . . . .
-        . # # # .
-        `)
-    control.waitMicros(1000000)
-    main_animation = 0
-    control.waitMicros(1000000)
-    main_animation = 1
-})
-input.onGesture(Gesture.TiltRight, function () {
-    basic.showLeds(`
-        . . . . .
-        . . # . #
-        . . # . #
-        . . . . .
-        . # # # .
-        `)
-    control.waitMicros(1000000)
-    main_animation = 0
-    control.waitMicros(1000000)
-    main_animation = 1
-})
 input.onButtonPressed(Button.A, function () {
     basic.showNumber(eat)
 })
@@ -33,65 +7,66 @@ input.onButtonPressed(Button.AB, function () {
 input.onButtonPressed(Button.B, function () {
     dead_or_no = eat + 1
 })
-input.onGesture(Gesture.ScreenUp, function () {
-	
-})
-input.onGesture(Gesture.FreeFall, function () {
-    basic.showLeds(`
-        . # . # .
-        # # . # #
-        . . . . .
-        . . # . .
-        . # # # .
-        `)
-    control.waitMicros(1000000)
-    main_animation = 0
-    control.waitMicros(1000000)
-    main_animation = 1
-})
-input.onGesture(Gesture.ScreenDown, function () {
-    basic.showLeds(`
-        . . . . .
-        . . . . .
-        # # . # #
-        . . . . .
-        . # # # .
-        `)
-    control.waitMicros(1000000)
-    main_animation = 0
-    control.waitMicros(1000000)
-    main_animation = 1
-})
-input.onGesture(Gesture.Shake, function () {
-    music.playTone(165, music.beat(BeatFraction.Double))
-    basic.showLeds(`
-        # . . . #
-        . # . # .
-        # . . . #
-        . . . . .
-        . . . . .
-        `)
-    basic.showLeds(`
-        . . . . .
-        # . . . #
-        . # . # .
-        # . . . #
-        . . . . .
-        `)
-    main_animation = 0
-    control.waitMicros(1000000)
-    main_animation = 1
-})
-let main_animation = 0
 let eat = 0
 let dead_or_no = 0
 dead_or_no = 0
 eat = 15
+let main_animation = 1
 loops.everyInterval(1000, function () {
     eat = eat - 1
 })
 basic.forever(function () {
-    if (main_animation == 1) {
+    if (input.isGesture(Gesture.TiltRight)) {
+        main_animation = 2
+    } else {
+        main_animation = 0
+    }
+})
+basic.forever(function () {
+    if (input.isGesture(Gesture.TiltRight)) {
+        main_animation = 4
+    } else {
+        main_animation = 0
+    }
+})
+basic.forever(function () {
+    if (main_animation == 2) {
+        basic.showLeds(`
+            . . . . .
+            # . # . .
+            # . # . .
+            . . . . .
+            . # # # .
+            `)
+    }
+})
+basic.forever(function () {
+    if (main_animation == 4) {
+        basic.showLeds(`
+            . # . # .
+            # # . # #
+            . . . . .
+            . . # . .
+            . # # # .
+            `)
+    }
+})
+basic.forever(function () {
+    if (input.isGesture(Gesture.TiltRight)) {
+        main_animation = 3
+    } else {
+        main_animation = 0
+    }
+})
+basic.forever(function () {
+    if (input.isGesture(Gesture.Shake)) {
+        main_animation = 5
+    } else {
+        main_animation = 0
+    }
+})
+basic.forever(function () {
+    if (main_animation == 0) {
         basic.showLeds(`
             . # . # .
             . # . # .
@@ -107,7 +82,7 @@ basic.forever(function () {
             # . . . #
             . # # # .
             `)
-        control.waitMicros(50)
+        control.waitMicros(5)
         basic.showLeds(`
             . . . . .
             . . . . .
@@ -115,9 +90,7 @@ basic.forever(function () {
             # . . . #
             . # # # .
             `)
-        control.waitMicros(100)
-    } else {
-        control.waitMicros(99999)
+        control.waitMicros(6)
     }
 })
 basic.forever(function () {
@@ -132,6 +105,7 @@ basic.forever(function () {
         } else {
             dead_or_no = 1
             music.playMelody("F E F G F E D C ", 106)
+            main_animation = 0
             basic.showIcon(IconNames.Sad)
             control.waitMicros(1000000)
             basic.showLeds(`
@@ -154,5 +128,71 @@ basic.forever(function () {
             basic.pause(999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999)
             control.waitMicros(1e+261)
         }
+    }
+})
+basic.forever(function () {
+    if (main_animation == 3) {
+        basic.showLeds(`
+            . . . . .
+            . . # . #
+            . . # . #
+            . . . . .
+            . # # # .
+            `)
+    }
+})
+basic.forever(function () {
+    if (main_animation == 5) {
+        music.playTone(165, music.beat(BeatFraction.Double))
+        basic.showLeds(`
+            # . . . #
+            . # . # .
+            # . . . #
+            . . . . .
+            . . . . .
+            `)
+        basic.showLeds(`
+            . . . . .
+            # . . . #
+            . # . # .
+            # . . . #
+            . . . . .
+            `)
+    }
+})
+basic.forever(function () {
+    if (input.isGesture(Gesture.ScreenDown)) {
+        main_animation = 6
+    } else {
+        main_animation = 0
+    }
+})
+basic.forever(function () {
+    if (main_animation == 6) {
+        basic.showLeds(`
+            . . . . .
+            . . . . .
+            # # . # #
+            . . . . .
+            . # # # .
+            `)
+    }
+})
+basic.forever(function () {
+    if (input.isGesture(Gesture.ScreenUp)) {
+        main_animation = 7
+    } else {
+        main_animation = 0
+    }
+})
+basic.forever(function () {
+    if (main_animation == 7) {
+        basic.showLeds(`
+            # # . # #
+            # # . # #
+            # # . # #
+            . . . . .
+            . # # # .
+            `)
     }
 })
